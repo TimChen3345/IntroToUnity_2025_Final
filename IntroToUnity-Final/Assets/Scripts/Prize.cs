@@ -42,7 +42,7 @@ public class Prize : MonoBehaviour
 
     void Update()
     {
-        if (player != null && Vector3.Distance(transform.position, player.transform.position) < triggerDistance)
+        if (player != null && Vector3.Distance(transform.position, player.transform.position) < triggerDistance && Input.GetKeyDown(KeyCode.Space))
         {
             //GameManager.instance.Score++;
 
