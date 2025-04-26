@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class Prize : MonoBehaviour
+public class P2_Prize : MonoBehaviour
 {
     public float triggerDistance = 1.5f; // Distance threshold for collection
-    private GameObject player;
+    private GameObject player2;
 
     // Define specific spawn positions
     private Vector3[] spawnPoints = new Vector3[]
@@ -37,12 +37,13 @@ public class Prize : MonoBehaviour
 
     void Start()
     {
-        player = GameObject.Find("PlayerCube");
+        player2 = GameObject.Find("Player2Cube");
     }
 
     void Update()
     {
-        if (player != null && Vector3.Distance(transform.position, player.transform.position) < triggerDistance && Input.GetKeyDown(KeyCode.Space))
+        if (player2 != null && Vector3.Distance(transform.position, player2.transform.position) < triggerDistance &&
+             (Input.GetKeyDown(KeyCode.RightShift)))
         {
             //GameManager.instance.Score++;
 
