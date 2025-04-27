@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     private int scoreP2 = 0;  // Player 2's score
     private float timeRemaining; // Time remaining in the countdown
 
-    private bool gameIsOver = false; // Flag to indicate if the game is over
+    public bool gameIsOver = false; // Flag to indicate if the game is over
 
     void Awake()
     {
@@ -69,6 +69,15 @@ public class GameManager : MonoBehaviour
         if (!gameIsOver)
         {
             scoreP2++;
+        }
+    }
+    
+    // Call this when the enemy touches a player
+    public void EnemyHitPlayer()
+    {
+        if (!gameIsOver)
+        {
+            EndGame();
         }
     }
 

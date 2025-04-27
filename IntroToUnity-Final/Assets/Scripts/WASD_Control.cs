@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Arrow_Movement : MonoBehaviour
+public class WASD_Movement : MonoBehaviour
 {
     public float moveSpeed = 5f;
 
@@ -13,25 +13,21 @@ public class Arrow_Movement : MonoBehaviour
 
     void Update()
     {
-        // Get WASD input
         float moveX = 0f;
         float moveZ = 0f;
 
-        // Check for WASD keys
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.W))
             moveZ += 1f;
-        if (Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKey(KeyCode.S))
             moveZ -= 1f;
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.A))
             moveX -= 1f;
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.D))
             moveX += 1f;
 
-        // Create the movement vector
         Vector3 move = transform.right * moveX + transform.forward * moveZ;
-        
-        // Apply the movement
-        controller.Move(move * moveSpeed * Time.deltaTime);
+        controller.Move(move.normalized * moveSpeed * Time.deltaTime);
     }
 }
+
 

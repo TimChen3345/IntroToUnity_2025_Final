@@ -3297,8 +3297,9 @@ GameObject:
   - component: {fileID: 491494821}
   - component: {fileID: 491494827}
   - component: {fileID: 491494826}
-  - component: {fileID: 491494825}
+  - component: {fileID: 491494830}
   - component: {fileID: 491494829}
+  - component: {fileID: 491494825}
   - component: {fileID: 491494823}
   - component: {fileID: 491494822}
   m_Layer: 3
@@ -3461,6 +3462,21 @@ MonoBehaviour:
   player1: {fileID: 1609215148}
   player2: {fileID: 1537823616}
   chaseRange: 18
+--- !u!114 &491494830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491494820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be0ed31d8f177b746a2c9087e30d588a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player1: {fileID: 1609215148}
+  player2: {fileID: 1537823616}
+  detectionRange: 0.1
 --- !u!1 &525827325
 GameObject:
   m_ObjectHideFlags: 0
@@ -7414,8 +7430,9 @@ GameObject:
   - component: {fileID: 1302945850}
   - component: {fileID: 1302945856}
   - component: {fileID: 1302945855}
-  - component: {fileID: 1302945854}
+  - component: {fileID: 1302945859}
   - component: {fileID: 1302945858}
+  - component: {fileID: 1302945854}
   - component: {fileID: 1302945852}
   - component: {fileID: 1302945851}
   m_Layer: 3
@@ -7578,6 +7595,21 @@ MonoBehaviour:
   player1: {fileID: 1609215148}
   player2: {fileID: 1537823616}
   chaseRange: 18
+--- !u!114 &1302945859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302945849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be0ed31d8f177b746a2c9087e30d588a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player1: {fileID: 1609215148}
+  player2: {fileID: 1537823616}
+  detectionRange: 0.1
 --- !u!1 &1316479222
 GameObject:
   m_ObjectHideFlags: 0
@@ -7918,6 +7950,7 @@ MonoBehaviour:
   scoreTextP2: {fileID: 573589940}
   resultText: {fileID: 993225818}
   countdownTime: 90
+  gameIsOver: 0
 --- !u!1 &1369066909
 GameObject:
   m_ObjectHideFlags: 0
@@ -8145,8 +8178,9 @@ GameObject:
   - component: {fileID: 1382351592}
   - component: {fileID: 1382351598}
   - component: {fileID: 1382351597}
-  - component: {fileID: 1382351596}
+  - component: {fileID: 1382351601}
   - component: {fileID: 1382351600}
+  - component: {fileID: 1382351596}
   - component: {fileID: 1382351594}
   - component: {fileID: 1382351593}
   m_Layer: 3
@@ -8309,6 +8343,21 @@ MonoBehaviour:
   player1: {fileID: 1609215148}
   player2: {fileID: 1537823616}
   chaseRange: 18
+--- !u!114 &1382351601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1382351591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be0ed31d8f177b746a2c9087e30d588a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player1: {fileID: 1609215148}
+  player2: {fileID: 1537823616}
+  detectionRange: 0.1
 --- !u!1 &1390441668
 GameObject:
   m_ObjectHideFlags: 0
@@ -9153,9 +9202,9 @@ GameObject:
   - component: {fileID: 1537823616}
   - component: {fileID: 1537823620}
   - component: {fileID: 1537823619}
-  - component: {fileID: 1537823624}
+  - component: {fileID: 1537823622}
   - component: {fileID: 1537823618}
-  - component: {fileID: 1537823623}
+  - component: {fileID: 1537823621}
   m_Layer: 3
   m_Name: Player2Cube
   m_TagString: Untagged
@@ -9252,7 +9301,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1537823615}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!143 &1537823623
+--- !u!143 &1537823621
 CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9277,7 +9326,7 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1537823624
+--- !u!114 &1537823622
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9286,7 +9335,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1537823615}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebb465ce4bf4cc04bb358c0d195b2590, type: 3}
+  m_Script: {fileID: 11500000, guid: f2de26e09fbaa4140ad4a442f3fad58f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 8
@@ -9657,10 +9706,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1609215148}
   - component: {fileID: 1609215153}
-  - component: {fileID: 1609215154}
   - component: {fileID: 1609215151}
+  - component: {fileID: 1609215155}
   - component: {fileID: 1609215150}
-  - component: {fileID: 1609215149}
+  - component: {fileID: 1609215154}
   m_Layer: 3
   m_Name: Player1Cube
   m_TagString: Untagged
@@ -9683,31 +9732,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1752382257}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!143 &1609215149
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1609215147}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 1
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &1609215150
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9782,7 +9806,32 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1609215147}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1609215154
+--- !u!143 &1609215154
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609215147}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 1
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1609215155
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9791,7 +9840,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1609215147}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62462dd29daf7b747a7bd4c1245b5cf6, type: 3}
+  m_Script: {fileID: 11500000, guid: dc28d2dc1df38464ba96d7f41aa72b94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 8
@@ -12793,6 +12842,7 @@ GameObject:
   - component: {fileID: 2140399536}
   - component: {fileID: 2140399535}
   - component: {fileID: 2140399534}
+  - component: {fileID: 2140399541}
   - component: {fileID: 2140399540}
   - component: {fileID: 2140399533}
   - component: {fileID: 2140399538}
@@ -12957,6 +13007,21 @@ MonoBehaviour:
   player1: {fileID: 1609215148}
   player2: {fileID: 1537823616}
   chaseRange: 18
+--- !u!114 &2140399541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140399532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be0ed31d8f177b746a2c9087e30d588a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player1: {fileID: 1609215148}
+  player2: {fileID: 1537823616}
+  detectionRange: 0.1
 --- !u!1 &2141545962
 GameObject:
   m_ObjectHideFlags: 0
