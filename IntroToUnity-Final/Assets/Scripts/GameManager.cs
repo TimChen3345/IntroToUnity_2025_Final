@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI; // Import this for Button support
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text scoreTextP1;   // TMP Text for Player 1's score display
     public TMP_Text scoreTextP2;   // TMP Text for Player 2's score display
     public TMP_Text resultText;    // TMP Text to display the result
+    public Button restartButton;   // Button to restart the game
 
     public float countdownTime = 90f; // Countdown duration in seconds
 
@@ -31,6 +33,7 @@ public class GameManager : MonoBehaviour
     {
         timeRemaining = countdownTime;
         resultText.gameObject.SetActive(false); // Hide the result text initially
+        restartButton.gameObject.SetActive(false); // Hide the restart button initially
     }
 
     void Update()
@@ -96,6 +99,8 @@ public class GameManager : MonoBehaviour
         // Display the result message
         resultText.gameObject.SetActive(true);
         resultText.text = winner + " Wins!\nPlayer 1: " + scoreP1 + "\nPlayer 2: " + scoreP2;
+
+        // Show the restart button
+        restartButton.gameObject.SetActive(true);
     }
 }
-
