@@ -1,157 +1,92 @@
-using System;
-using System.IO;
-using System.Net;
-using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameManager instance; // Singleton instance
 
-    int score;
+    public TMP_Text countdownText; // TMP Text for countdown display
+    public TMP_Text scoreTextP1;   // TMP Text for Player 1's score display
+    public TMP_Text scoreTextP2;   // TMP Text for Player 2's score display
+    public TMP_Text resultText;    // TMP Text to display the result
 
-    public int Score
-    {
-        get { return score; }
-        set
-        {
-            score = value;
-            if (score > HighScore)
-            {
-                HighScore = score;
-            }
-            Debug.Log("The score is now:" + score);
-        }
-    }
+    public float countdownTime = 90f; // Countdown duration in seconds
 
-    int highScore = 10; //PB
-    
-    const string KEY_HIGH_SCORE = "HIGH SCORE";
+    private int scoreP1 = 0;  // Player 1's score
+    private int scoreP2 = 0;  // Player 2's score
+    private float timeRemaining; // Time remaining in the countdown
 
-    string FILE_NAME = "/highScoreFile.txt";
+    private bool gameIsOver = false; // Flag to indicate if the game is over
 
-    string FILE_PATH;
-
-    int[] highScoreArray;
-
-    public int HighScore
-    {
-        get
-        {
-            //highScore = PlayerPrefs.GetInt(KEY_HIGH_SCORE);
-            string fileContents = File.ReadAllText(FILE_PATH + FILE_NAME);
-            if (fileContents.Length == 0)
-            {
-                highScore = 1;
-                return highScore;
-            }
-            else
-            {
-                string[] scoreString = fileContents.Split(',');
-
-                highScoreArray = new int[scoreString.Length];
-
-                for (int i = 0; i < scoreString.Length; i++)
-                {
-                    highScoreArray[i] = int.Parse(scoreString[i]);
-
-                    Debug.Log("HighScoreArray" + i + ":" + highScoreArray[i]);
-                }
-
-                highScore = highScoreArray[0];
-
-                return highScore;
-            }
-        }
-        set
-        {
-            highScore = value;
-            
-            Debug.Log("FILE" + FILE_PATH + FILE_NAME);
-            string highScoreString = highScore + "";
-
-            for (int i = 0; i < highScoreArray.Length; i++)
-            {
-                highScoreString += highScoreArray[i] + ",";
-            }
-            
-            highScoreString = highScoreString.TrimEnd(',');
-            
-            File.WriteAllText(FILE_PATH + FILE_NAME, highScoreString);
-            
-            Debug.Log("New High Score" + highScore);
-        }
-    }
-
-    public int levelScore = 5;
-
-    public TextMeshPro tmp;
-
-    private float timeRemaining = 34;
-
-    private int currentSceneNum = 1;
     void Awake()
     {
-        // if instance has not been set yet
+        // Ensure only one instance of GameManager exists
         if (instance == null)
-        {
-            // make this object the instance
             instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
         else
-        {
-            //I'm a duplicate and I need to die, there can only be one
             Destroy(gameObject);
-        }
     }
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
-        FILE_PATH = Application.persistentDataPath;
-        Debug.Log(FILE_PATH);
+        timeRemaining = countdownTime;
+        resultText.gameObject.SetActive(false); // Hide the result text initially
     }
 
-    // Update is called once per frame
     void Update()
     {
+        if (gameIsOver)
+            return;
+
+        // Countdown logic
         timeRemaining -= Time.deltaTime;
-
-        tmp.text = "Score:" + score + " Level:" + currentSceneNum + " Time Remaining:" + Mathf.Floor(timeRemaining);
-        
-        //if the time has run out, go to game over scene
-        if (timeRemaining <= 0)
+        if (timeRemaining <= 0f)
         {
-            GameOverScene();
-            Debug.Log("You've reached Level: " + currentSceneNum + "With Score" + score);
-            Destroy(gameObject);
+            timeRemaining = 0f;
+            EndGame();
         }
-        
-        // If I hit a Certain Score, I advance to the next Level(Scene)
-        if (score >= levelScore)
+
+        // Update the countdown display
+        countdownText.text = "Time: " + Mathf.Ceil(timeRemaining).ToString();
+
+        // Update the score displays
+        scoreTextP1.text = "Player 1: " + scoreP1.ToString();
+        scoreTextP2.text = "Player 2: " + scoreP2.ToString();
+    }
+
+    // Method to increment Player 1's score
+    public void Player1Scored()
+    {
+        if (!gameIsOver)
         {
-            //increase the levelScore by 50%
-            levelScore += levelScore + levelScore / 2;
-            ChangeScene();
+            scoreP1++;
         }
-        
     }
 
-    void ChangeScene()
+    // Method to increment Player 2's score
+    public void Player2Scored()
     {
-        currentSceneNum++;
-        SceneManager.LoadScene(currentSceneNum);
+        if (!gameIsOver)
+        {
+            scoreP2++;
+        }
     }
 
-    void GameOverScene()
+    // End the game and display the result
+    void EndGame()
     {
-        SceneManager.LoadScene("GameOver");
-    }
+        gameIsOver = true;
 
-    public void resetHighScore()
-    {
-        PlayerPrefs.DeleteKey(KEY_HIGH_SCORE);
+        // Determine the winning player
+        string winner = "Draw";
+        if (scoreP1 > scoreP2)
+            winner = "Player 1";
+        else if (scoreP2 > scoreP1)
+            winner = "Player 2";
+
+        // Display the result message
+        resultText.gameObject.SetActive(true);
+        resultText.text = winner + " Wins!\nPlayer 1: " + scoreP1 + "\nPlayer 2: " + scoreP2;
     }
 }
+

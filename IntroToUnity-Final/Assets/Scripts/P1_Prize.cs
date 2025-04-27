@@ -45,9 +45,7 @@ public class P1_Prize : MonoBehaviour
         if (player1 != null && Vector3.Distance(transform.position, player1.transform.position) < triggerDistance &&
             (Input.GetKeyDown(KeyCode.E)))
         {
-            //GameManager.instance.Score++;
-
-            // Choose a random spawn point from the array
+            GameManager.instance.Player1Scored();  // Increment Player 1's score
             transform.position = spawnPoints[Random.Range(0, spawnPoints.Length)];
         }
     }

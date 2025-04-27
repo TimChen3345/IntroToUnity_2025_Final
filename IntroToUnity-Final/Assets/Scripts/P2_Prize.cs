@@ -43,11 +43,9 @@ public class P2_Prize : MonoBehaviour
     void Update()
     {
         if (player2 != null && Vector3.Distance(transform.position, player2.transform.position) < triggerDistance &&
-             (Input.GetKeyDown(KeyCode.RightShift)))
+            (Input.GetKeyDown(KeyCode.RightShift)))
         {
-            //GameManager.instance.Score++;
-
-            // Choose a random spawn point from the array
+            GameManager.instance.Player2Scored();  // Increment Player 1's score
             transform.position = spawnPoints[Random.Range(0, spawnPoints.Length)];
         }
     }
