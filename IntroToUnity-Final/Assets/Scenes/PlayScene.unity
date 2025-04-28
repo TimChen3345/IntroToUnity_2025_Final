@@ -3474,6 +3474,7 @@ GameObject:
   - component: {fileID: 491494821}
   - component: {fileID: 491494827}
   - component: {fileID: 491494826}
+  - component: {fileID: 491494831}
   - component: {fileID: 491494830}
   - component: {fileID: 491494829}
   - component: {fileID: 491494825}
@@ -3538,7 +3539,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 8
+  m_Speed: 10
   m_Acceleration: 15
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -3654,6 +3655,20 @@ MonoBehaviour:
   player1: {fileID: 1609215148}
   player2: {fileID: 1537823616}
   detectionRange: 0.1
+--- !u!114 &491494831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491494820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9f1cc2b4df93704981fe843a354e119, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 500
+  rotationAxis: {x: 0, y: 1, z: 0}
 --- !u!1 &525827325
 GameObject:
   m_ObjectHideFlags: 0
@@ -6758,6 +6773,7 @@ GameObject:
   - component: {fileID: 1124816661}
   - component: {fileID: 1124816668}
   - component: {fileID: 1124816667}
+  - component: {fileID: 1124816669}
   - component: {fileID: 1124816666}
   - component: {fileID: 1124816665}
   - component: {fileID: 1124816664}
@@ -6822,7 +6838,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 8
+  m_Speed: 10
   m_Acceleration: 15
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -6938,6 +6954,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1124816660}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1124816669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1124816660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9f1cc2b4df93704981fe843a354e119, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 500
+  rotationAxis: {x: 0, y: 1, z: 0}
 --- !u!1 &1128485500
 GameObject:
   m_ObjectHideFlags: 0
@@ -7980,6 +8010,7 @@ GameObject:
   - component: {fileID: 1302945850}
   - component: {fileID: 1302945856}
   - component: {fileID: 1302945855}
+  - component: {fileID: 1302945861}
   - component: {fileID: 1302945859}
   - component: {fileID: 1302945860}
   - component: {fileID: 1302945854}
@@ -8044,7 +8075,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 8
+  m_Speed: 10
   m_Acceleration: 15
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -8160,6 +8191,20 @@ MonoBehaviour:
   player1: {fileID: 1609215148}
   player2: {fileID: 1537823616}
   chaseRange: 15
+--- !u!114 &1302945861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302945849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9f1cc2b4df93704981fe843a354e119, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 500
+  rotationAxis: {x: 0, y: 1, z: 0}
 --- !u!1 &1316479222
 GameObject:
   m_ObjectHideFlags: 0
@@ -8729,6 +8774,7 @@ GameObject:
   - component: {fileID: 1382351592}
   - component: {fileID: 1382351598}
   - component: {fileID: 1382351597}
+  - component: {fileID: 1382351602}
   - component: {fileID: 1382351601}
   - component: {fileID: 1382351600}
   - component: {fileID: 1382351596}
@@ -8793,7 +8839,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 8
+  m_Speed: 10
   m_Acceleration: 15
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -8909,6 +8955,20 @@ MonoBehaviour:
   player1: {fileID: 1609215148}
   player2: {fileID: 1537823616}
   detectionRange: 0.1
+--- !u!114 &1382351602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1382351591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9f1cc2b4df93704981fe843a354e119, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 500
+  rotationAxis: {x: 0, y: 1, z: 0}
 --- !u!1 &1390441668
 GameObject:
   m_ObjectHideFlags: 0

@@ -50,11 +50,11 @@ public class GameManager : MonoBehaviour
         }
 
         // Update the countdown display
-        countdownText.text = "Time: " + Mathf.Ceil(timeRemaining).ToString();
+        countdownText.text = "Time: " + Mathf.Ceil(timeRemaining);
 
         // Update the score displays
-        scoreTextP1.text = "Player 1: " + scoreP1.ToString();
-        scoreTextP2.text = "Player 2: " + scoreP2.ToString();
+        scoreTextP1.text = "Player 1: " + scoreP1;
+        scoreTextP2.text = "Player 2: " + scoreP2;
     }
 
     // Method to increment Player 1's score
