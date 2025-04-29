@@ -30,7 +30,7 @@ public class StartPageSpawn : MonoBehaviour
             objToSpawn.transform.position = new Vector3(
                 Random.Range(-20f, 20f),
                 Random.Range(0f, 0f),
-                Random.Range(5.74f, 5.74f));
+                Random.Range(0f, 24f));
 
             objToSpawn.transform.parent = bombHolder.transform;
             bombList.Add(objToSpawn);
@@ -49,7 +49,7 @@ public class StartPageSpawn : MonoBehaviour
         newbomb.transform.position = new Vector3(
             Random.Range(-74f, 61f),
             Random.Range(0f, 0f),
-            Random.Range(-24f, 24f));
+            Random.Range(0f, 24f));
 
         newbomb.transform.parent = bombHolder.transform;
 
