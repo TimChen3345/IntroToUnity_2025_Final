@@ -28,16 +28,16 @@ public class StartPageSpawn : MonoBehaviour
                 : GameObject.CreatePrimitive(PrimitiveType.Capsule);
 
             objToSpawn.transform.position = new Vector3(
-                Random.Range(-20f, 20f),
+                Random.Range(-13f, 13f),
                 Random.Range(0f, 0f),
-                Random.Range(0f, 24f));
+                Random.Range(5f, 10f));
 
             objToSpawn.transform.parent = bombHolder.transform;
             bombList.Add(objToSpawn);
             bomb[i] = objToSpawn;
         }
 
-        InvokeRepeating(nameof(SpawnCapsule), time: 0.1f, repeatRate: 0.1f);
+        InvokeRepeating(nameof(SpawnCapsule), time: 0.5f, repeatRate: 0.5f);
     }
 
     public void SpawnCapsule()
@@ -47,9 +47,9 @@ public class StartPageSpawn : MonoBehaviour
             : GameObject.CreatePrimitive(PrimitiveType.Capsule);
 
         newbomb.transform.position = new Vector3(
-            Random.Range(-74f, 61f),
+            Random.Range(-13f, 13f),
             Random.Range(0f, 0f),
-            Random.Range(0f, 24f));
+            Random.Range(5f, 10f));
 
         newbomb.transform.parent = bombHolder.transform;
 
@@ -60,13 +60,13 @@ public class StartPageSpawn : MonoBehaviour
         }
 
         // Make it fall slowly
-        rb.mass = 0.5f;          // Lower mass
-        rb.linearDamping = 2f;            // Increase air resistance
+        rb.mass = 0.8f;          // Lower mass
+        rb.linearDamping = 1.2f;            // Increase air resistance
         rb.useGravity = true;    // Ensure gravity is still on
 
         bombList.Add(newbomb);
 
-        Destroy(newbomb, 10f);
+        Destroy(newbomb, 20f);
     }
 
 }
