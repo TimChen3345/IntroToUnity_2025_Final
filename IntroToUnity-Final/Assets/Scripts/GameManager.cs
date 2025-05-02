@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text scoreTextP2;            // Player 2 score display
     public TMP_Text resultText;             // Result display
     public Button restartButton;            // Restart button
+    public Image  resultBackground;         // ResultBackground
 
     [Header("Game Settings")]
     public float countdownTime = 90f;       // Total time in seconds
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour
         timeRemaining = countdownTime;
         resultText.gameObject.SetActive(false);
         restartButton.gameObject.SetActive(false);
+        resultBackground.gameObject.SetActive(false);
     }
 
     void Update()
@@ -52,8 +54,8 @@ public class GameManager : MonoBehaviour
 
         // UI updates
         countdownText.text = "Time: " + Mathf.Ceil(timeRemaining);
-        scoreTextP1.text = "Player 1: " + scoreP1;
-        scoreTextP2.text = "Player 2: " + scoreP2;
+        scoreTextP1.text = "Treasure: " + scoreP1;
+        scoreTextP2.text = "Treasure: " + scoreP2;
     }
 
     // Called from other scripts when a player scores
@@ -70,19 +72,20 @@ public class GameManager : MonoBehaviour
     }
 
     // Called by Enemy when it hits a player
-    // playerHit: 1 = Player 1 was hit → Player 2 wins
-    //            2 = Player 2 was hit → Player 1 wins
+    // playerHit: 1 = Player left was hit → Player Right wins
+    //            2 = Player Right was hit → Player Left wins
     public void EnemyHitPlayer(int playerHit)
     {
         if (gameIsOver) return;
 
         gameIsOver = true;
 
-        string winner = (playerHit == 1) ? "Player 2" : "Player 1";
+        string winner = (playerHit == 1) ? "Player Right" : "Player Left";
 
         resultText.gameObject.SetActive(true);
-        resultText.text = $"{winner} Wins by enemy hit!\nPlayer 1: {scoreP1}\nPlayer 2: {scoreP2}";
+        resultText.text = $"{winner} Wins by enemy hit!\n\nPlayer Left: {scoreP1}\nPlayer Right: {scoreP2}";
         restartButton.gameObject.SetActive(true);
+        resultBackground.gameObject.SetActive(true);
     }
 
     // Fallback end‐game when time runs out
@@ -92,12 +95,13 @@ public class GameManager : MonoBehaviour
 
         string winner = "Draw";
         if (scoreP1 > scoreP2)
-            winner = "Player 1";
+            winner = "Player Left";
         else if (scoreP2 > scoreP1)
-            winner = "Player 2";
+            winner = "Player Right";
 
         resultText.gameObject.SetActive(true);
-        resultText.text = $"{winner} Wins!\nPlayer 1: {scoreP1}\nPlayer 2: {scoreP2}";
+        resultText.text = $"{winner} Wins!\n\nPlayer Left: {scoreP1}\nPlayer Right: {scoreP2}";
         restartButton.gameObject.SetActive(true);
+        resultBackground.gameObject.SetActive(true);
     }
 }
