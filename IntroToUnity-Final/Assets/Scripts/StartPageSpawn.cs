@@ -37,7 +37,7 @@ public class StartPageSpawn : MonoBehaviour
             bomb[i] = objToSpawn;
         }
 
-        InvokeRepeating(nameof(SpawnCapsule), time: 0.5f, repeatRate: 0.5f);
+        InvokeRepeating(nameof(SpawnCapsule), time: 0.5f, repeatRate: 0.4f);
     }
 
     public void SpawnCapsule()
