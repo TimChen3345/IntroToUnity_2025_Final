@@ -2,8 +2,11 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [Header("Player Transforms")]
     public Transform player1;
     public Transform player2;
+
+    [Header("Detection Settings")]
     public float detectionRange = 0.5f;
 
     private Collider enemyCollider;
@@ -12,35 +15,41 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
-        enemyCollider = GetComponent<Collider>();
+        // Cache references to all colliders
+        enemyCollider   = GetComponent<Collider>();
         player1Collider = player1.GetComponent<Collider>();
         player2Collider = player2.GetComponent<Collider>();
     }
 
     void Update()
     {
-        if (GameManager.instance == null || GameManager.instance.gameIsOver) return;
+        // Do nothing if the game is over or GameManager is missing
+        if (GameManager.instance == null || GameManager.instance.gameIsOver)
+            return;
 
-        Vector3 closestPointToP1 = enemyCollider.ClosestPoint(player1.position);
-        Vector3 closestPointOnP1 = player1Collider.ClosestPoint(transform.position);
+        // Compute the closest points between this enemy and each player
+        Vector3 closestToP1       = enemyCollider.ClosestPoint(player1.position);
+        Vector3 player1ToEnemy    = player1Collider.ClosestPoint(transform.position);
+        Vector3 closestToP2       = enemyCollider.ClosestPoint(player2.position);
+        Vector3 player2ToEnemy    = player2Collider.ClosestPoint(transform.position);
 
-        Vector3 closestPointToP2 = enemyCollider.ClosestPoint(player2.position);
-        Vector3 closestPointOnP2 = player2Collider.ClosestPoint(transform.position);
+        // Calculate actual distances
+        float dist1              = Vector3.Distance(closestToP1, player1.position);
+        float dist1Reverse       = Vector3.Distance(player1ToEnemy, transform.position);
+        float dist2              = Vector3.Distance(closestToP2, player2.position);
+        float dist2Reverse       = Vector3.Distance(player2ToEnemy, transform.position);
 
-        float realDistanceP1 = Vector3.Distance(closestPointToP1, player1.position);
-        float realDistanceP1Reverse = Vector3.Distance(closestPointOnP1, transform.position);
-
-        float realDistanceP2 = Vector3.Distance(closestPointToP2, player2.position);
-        float realDistanceP2Reverse = Vector3.Distance(closestPointOnP2, transform.position);
-
-        if (realDistanceP1 <= detectionRange || realDistanceP1Reverse <= detectionRange ||
-            realDistanceP2 <= detectionRange || realDistanceP2Reverse <= detectionRange)
+        // Check for collision with Player 1
+        if (dist1 <= detectionRange || dist1Reverse <= detectionRange)
         {
-            Debug.Log("Enemy touched a player (3D Collider)! Ending game.");
-            GameManager.instance.EnemyHitPlayer();
+            Debug.Log("Enemy touched Player 1. Player 2 wins.");
+            GameManager.instance.EnemyHitPlayer(1);
+        }
+        // Otherwise check for collision with Player 2
+        else if (dist2 <= detectionRange || dist2Reverse <= detectionRange)
+        {
+            Debug.Log("Enemy touched Player 2. Player 1 wins.");
+            GameManager.instance.EnemyHitPlayer(2);
         }
     }
 }
-
-
-
