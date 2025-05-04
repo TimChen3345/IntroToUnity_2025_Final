@@ -1,9 +1,13 @@
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class P1_Prize : MonoBehaviour
 {
     public float triggerDistance = 1.5f; // Distance threshold for collection
+    public AudioClip pickupSound;
+
     private GameObject player1;
+    private AudioSource audioSource;
 
     // Define specific spawn positions
     private Vector3[] spawnPoints = new Vector3[]
@@ -38,13 +42,16 @@ public class P1_Prize : MonoBehaviour
     void Start()
     {
         player1 = GameObject.Find("Player1Cube");
+        audioSource = GetComponent<AudioSource>();
+        audioSource.playOnAwake = false;
     }
 
     void Update()
     {
         if (player1 != null && Vector3.Distance(transform.position, player1.transform.position) < triggerDistance &&
-            (Input.GetKeyDown(KeyCode.E)))
+            Input.GetKeyDown(KeyCode.E))
         {
+            audioSource.PlayOneShot(pickupSound); // Play pickup sound
             GameManager.instance.Player1Scored();  // Increment Player 1's score
             transform.position = spawnPoints[Random.Range(0, spawnPoints.Length)];
         }

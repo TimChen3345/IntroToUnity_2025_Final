@@ -5,6 +5,15 @@ using UnityEngine.UI; // For Button
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;     // Singleton instance
+    
+    [Header("Audio")]
+    public AudioSource bgmSource;         // AudioSource that plays BGM
+    public AudioClip[] bgmClips;          // Array of BGM clips to choose from
+
+    public AudioSource resultSfxSource;   // For result sound
+    public AudioClip resultClip;          // The result sound clip
+
+
 
     [Header("UI References")]
     public TMP_Text countdownText;          // Countdown display
@@ -37,7 +46,19 @@ public class GameManager : MonoBehaviour
         resultText.gameObject.SetActive(false);
         restartButton.gameObject.SetActive(false);
         resultBackground.gameObject.SetActive(false);
+
+        PlayRandomBGM();
     }
+
+    void PlayRandomBGM()
+    {
+        if (bgmClips.Length == 0 || bgmSource == null) return;
+
+        int randomIndex = Random.Range(0, bgmClips.Length);
+        bgmSource.clip = bgmClips[randomIndex];
+        bgmSource.Play();
+    }
+
 
     void Update()
     {
@@ -86,6 +107,9 @@ public class GameManager : MonoBehaviour
         resultText.text = $"{winner} Wins by enemy hit!\n\nPlayer Left: {scoreP1}\nPlayer Right: {scoreP2}";
         restartButton.gameObject.SetActive(true);
         resultBackground.gameObject.SetActive(true);
+        PlayResultSound();
+
+
     }
 
     // Fallback end‐game when time runs out
@@ -103,5 +127,16 @@ public class GameManager : MonoBehaviour
         resultText.text = $"{winner} Wins!\n\nPlayer Left: {scoreP1}\nPlayer Right: {scoreP2}";
         restartButton.gameObject.SetActive(true);
         resultBackground.gameObject.SetActive(true);
+        PlayResultSound();
     }
+    
+    void PlayResultSound()
+    {
+        if (bgmSource.isPlaying)
+            bgmSource.Stop();
+
+        if (resultClip != null)
+            resultSfxSource.PlayOneShot(resultClip);
+    }
+
 }

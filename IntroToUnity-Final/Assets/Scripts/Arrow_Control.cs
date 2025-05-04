@@ -1,14 +1,20 @@
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class Arrow_Movement : MonoBehaviour
 {
     public float moveSpeed = 5f;
+    public AudioClip walkingClip;
 
     private CharacterController controller;
+    private AudioSource audioSource;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = walkingClip;
+        audioSource.loop = true;
     }
 
     void Update()
@@ -27,7 +33,17 @@ public class Arrow_Movement : MonoBehaviour
 
         Vector3 move = transform.right * moveX + transform.forward * moveZ;
         controller.Move(move.normalized * moveSpeed * Time.deltaTime);
+
+        // Handle walking sound
+        if (move.magnitude > 0.1f)
+        {
+            if (!audioSource.isPlaying)
+                audioSource.Play();
+        }
+        else
+        {
+            if (audioSource.isPlaying)
+                audioSource.Pause();
+        }
     }
 }
-
-
