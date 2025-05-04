@@ -12,6 +12,10 @@ public class GameManager : MonoBehaviour
 
     public AudioSource resultSfxSource;   // For result sound
     public AudioClip resultClip;          // The result sound clip
+    
+    public AudioClip countdownClip;         // 10-second countdown clip
+    public AudioSource sfxSource;         // General-purpose SFX AudioSource
+
 
 
 
@@ -30,6 +34,8 @@ public class GameManager : MonoBehaviour
     private int scoreP2 = 0;
     private float timeRemaining;
     public bool gameIsOver = false;
+    private bool countdownSoundPlayed = false;
+
 
     void Awake()
     {
@@ -67,6 +73,12 @@ public class GameManager : MonoBehaviour
 
         // Countdown
         timeRemaining -= Time.deltaTime;
+        if (!countdownSoundPlayed && timeRemaining <= 10f)
+        {
+            countdownSoundPlayed = true;
+            PlayCountdownSound();
+        }
+
         if (timeRemaining <= 0f)
         {
             timeRemaining = 0f;
@@ -78,6 +90,15 @@ public class GameManager : MonoBehaviour
         scoreTextP1.text = "Treasure: " + scoreP1;
         scoreTextP2.text = "Treasure: " + scoreP2;
     }
+    
+    void PlayCountdownSound()
+    {
+        if (countdownClip != null && sfxSource != null)
+        {
+            sfxSource.PlayOneShot(countdownClip);
+        }
+    }
+
 
     // Called from other scripts when a player scores
     public void Player1Scored()
