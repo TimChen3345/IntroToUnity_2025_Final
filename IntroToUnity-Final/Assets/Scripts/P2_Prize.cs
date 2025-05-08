@@ -41,7 +41,7 @@ public class P2_Prize : MonoBehaviour
 
     void Start()
     {
-        player2 = GameObject.Find("Player2Cube");
+        player2 = GameObject.Find("player2");
         audioSource = GetComponent<AudioSource>();
         audioSource.playOnAwake = false;
     }

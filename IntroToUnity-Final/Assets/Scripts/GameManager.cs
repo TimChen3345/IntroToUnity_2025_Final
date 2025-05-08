@@ -1,34 +1,32 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI; // For Button
+using UnityEngine.UI;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;     // Singleton instance
-    
+    public static GameManager instance;
+
     [Header("Audio")]
-    public AudioSource bgmSource;         // AudioSource that plays BGM
-    public AudioClip[] bgmClips;          // Array of BGM clips to choose from
-
-    public AudioSource resultSfxSource;   // For result sound
-    public AudioClip resultClip;          // The result sound clip
-    
-    public AudioClip countdownClip;         // 10-second countdown clip
-    public AudioSource sfxSource;         // General-purpose SFX AudioSource
-
-
-
+    public AudioSource bgmSource;
+    public AudioClip[] bgmClips;
+    public AudioSource resultSfxSource;
+    public AudioClip resultClip;
+    public AudioClip countdownClip;
+    public AudioSource sfxSource;
 
     [Header("UI References")]
-    public TMP_Text countdownText;          // Countdown display
-    public TMP_Text scoreTextP1;            // Player 1 score display
-    public TMP_Text scoreTextP2;            // Player 2 score display
-    public TMP_Text resultText;             // Result display
-    public Button restartButton;            // Restart button
-    public Image  resultBackground;         // ResultBackground
+    public TMP_Text countdownText;
+    public TMP_Text scoreTextP1;
+    public TMP_Text scoreTextP2;
+    public TMP_Text resultText;
+    public Button restartButton;
+    public Image resultBackground;
+    public TMP_Text respawnCountdownTextP1;
+    public TMP_Text respawnCountdownTextP2;
 
     [Header("Game Settings")]
-    public float countdownTime = 90f;       // Total time in seconds
+    public float countdownTime = 90f;
 
     private int scoreP1 = 0;
     private int scoreP2 = 0;
@@ -36,10 +34,15 @@ public class GameManager : MonoBehaviour
     public bool gameIsOver = false;
     private bool countdownSoundPlayed = false;
 
+    [Header("Player Respawn Settings")]
+    public GameObject player1;
+    public GameObject player2;
+
+    private Vector3 respawnLocationP1 = new Vector3(-2.17f, 0.507f, 92.53f);
+    private Vector3 respawnLocationP2 = new Vector3(1.049f, 0.507f, 5.008f);
 
     void Awake()
     {
-        // Singleton pattern
         if (instance == null)
             instance = this;
         else
@@ -52,26 +55,15 @@ public class GameManager : MonoBehaviour
         resultText.gameObject.SetActive(false);
         restartButton.gameObject.SetActive(false);
         resultBackground.gameObject.SetActive(false);
-
+        respawnCountdownTextP1.gameObject.SetActive(false);
+        respawnCountdownTextP2.gameObject.SetActive(false);
         PlayRandomBGM();
     }
 
-    void PlayRandomBGM()
-    {
-        if (bgmClips.Length == 0 || bgmSource == null) return;
-
-        int randomIndex = Random.Range(0, bgmClips.Length);
-        bgmSource.clip = bgmClips[randomIndex];
-        bgmSource.Play();
-    }
-
-
     void Update()
     {
-        if (gameIsOver)
-            return;
+        if (gameIsOver) return;
 
-        // Countdown
         timeRemaining -= Time.deltaTime;
         if (!countdownSoundPlayed && timeRemaining <= 10f)
         {
@@ -85,12 +77,19 @@ public class GameManager : MonoBehaviour
             EndGameByScore();
         }
 
-        // UI updates
         countdownText.text = "Time: " + Mathf.Ceil(timeRemaining);
         scoreTextP1.text = "Treasure: " + scoreP1;
         scoreTextP2.text = "Treasure: " + scoreP2;
     }
-    
+
+    void PlayRandomBGM()
+    {
+        if (bgmClips.Length == 0 || bgmSource == null) return;
+        int randomIndex = Random.Range(0, bgmClips.Length);
+        bgmSource.clip = bgmClips[randomIndex];
+        bgmSource.Play();
+    }
+
     void PlayCountdownSound()
     {
         if (countdownClip != null && sfxSource != null)
@@ -99,8 +98,43 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void RespawnPlayer(int playerNumber)
+    {
+        if (playerNumber == 1)
+            StartCoroutine(RespawnPlayer1());
+        else if (playerNumber == 2)
+            StartCoroutine(RespawnPlayer2());
+    }
 
-    // Called from other scripts when a player scores
+    private IEnumerator RespawnPlayer1()
+    {
+        player1.SetActive(false);
+        player1.transform.position = respawnLocationP1;
+        yield return StartCoroutine(ShowRespawnCountdown(respawnCountdownTextP1));
+        player1.SetActive(true);
+    }
+
+    private IEnumerator RespawnPlayer2()
+    {
+        player2.SetActive(false);
+        player2.transform.position = respawnLocationP2;
+        yield return StartCoroutine(ShowRespawnCountdown(respawnCountdownTextP2));
+        player2.SetActive(true);
+    }
+
+    private IEnumerator ShowRespawnCountdown(TMP_Text countdownText)
+    {
+        countdownText.gameObject.SetActive(true);
+        float countdown = 5f;
+        while (countdown > 0f)
+        {
+            countdownText.text = $"Respawn...\n{countdown:F1}";
+            countdown -= Time.deltaTime;
+            yield return null;
+        }
+        countdownText.gameObject.SetActive(false);
+    }
+
     public void Player1Scored()
     {
         if (!gameIsOver)
@@ -113,27 +147,6 @@ public class GameManager : MonoBehaviour
             scoreP2++;
     }
 
-    // Called by Enemy when it hits a player
-    // playerHit: 1 = Player left was hit → Player Right wins
-    //            2 = Player Right was hit → Player Left wins
-    public void EnemyHitPlayer(int playerHit)
-    {
-        if (gameIsOver) return;
-
-        gameIsOver = true;
-
-        string winner = (playerHit == 1) ? "Player Right" : "Player Left";
-
-        resultText.gameObject.SetActive(true);
-        resultText.text = $"{winner} Wins by enemy hit!\n\nPlayer Left: {scoreP1}\nPlayer Right: {scoreP2}";
-        restartButton.gameObject.SetActive(true);
-        resultBackground.gameObject.SetActive(true);
-        PlayResultSound();
-
-
-    }
-
-    // Fallback end‐game when time runs out
     private void EndGameByScore()
     {
         gameIsOver = true;
@@ -150,7 +163,7 @@ public class GameManager : MonoBehaviour
         resultBackground.gameObject.SetActive(true);
         PlayResultSound();
     }
-    
+
     void PlayResultSound()
     {
         if (bgmSource.isPlaying)
@@ -159,5 +172,6 @@ public class GameManager : MonoBehaviour
         if (resultClip != null)
             resultSfxSource.PlayOneShot(resultClip);
     }
-
 }
+
+
