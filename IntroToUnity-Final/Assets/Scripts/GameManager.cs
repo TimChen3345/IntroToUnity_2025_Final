@@ -6,6 +6,10 @@ using System.Collections;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    
+    [Header("Camera References")]
+    public RawImage mainCamera1;
+    public RawImage mainCamera2;
 
     [Header("Audio")]
     public AudioSource bgmSource;
@@ -15,7 +19,9 @@ public class GameManager : MonoBehaviour
     public AudioClip countdownClip;
     public AudioSource sfxSource;
 
-    [Header("UI References")]
+    [Header("UI References")] 
+    public TMP_Text controlP1;
+    public TMP_Text controlP2;
     public TMP_Text countdownText;
     public TMP_Text scoreTextP1;
     public TMP_Text scoreTextP2;
@@ -24,6 +30,9 @@ public class GameManager : MonoBehaviour
     public Image resultBackground;
     public TMP_Text respawnCountdownTextP1;
     public TMP_Text respawnCountdownTextP2;
+    public Image respawnBackgroundP1;
+    public Image respawnBackgroundP2;
+    public RawImage logo;
 
     [Header("Game Settings")]
     public float countdownTime = 90f;
@@ -57,6 +66,9 @@ public class GameManager : MonoBehaviour
         resultBackground.gameObject.SetActive(false);
         respawnCountdownTextP1.gameObject.SetActive(false);
         respawnCountdownTextP2.gameObject.SetActive(false);
+        respawnBackgroundP1.gameObject.SetActive(false);
+        respawnBackgroundP2.gameObject.SetActive(false);
+        logo.gameObject.SetActive(false);
         PlayRandomBGM();
     }
 
@@ -110,7 +122,17 @@ public class GameManager : MonoBehaviour
     {
         player1.SetActive(false);
         player1.transform.position = respawnLocationP1;
+        respawnBackgroundP1.gameObject.SetActive(true);
+        scoreTextP1.gameObject.SetActive(false);
+        mainCamera1.gameObject.SetActive(false);
+        controlP1.gameObject.SetActive(false);
+        
         yield return StartCoroutine(ShowRespawnCountdown(respawnCountdownTextP1));
+        
+        controlP1.gameObject.SetActive(true);
+        mainCamera1.gameObject.SetActive(true);
+        respawnBackgroundP1.gameObject.SetActive(false);
+        scoreTextP1.gameObject.SetActive(true);
         player1.SetActive(true);
     }
 
@@ -118,7 +140,17 @@ public class GameManager : MonoBehaviour
     {
         player2.SetActive(false);
         player2.transform.position = respawnLocationP2;
+        respawnBackgroundP2.gameObject.SetActive(true);
+        scoreTextP2.gameObject.SetActive(false);
+        mainCamera2.gameObject.SetActive(false);
+        controlP2.gameObject.SetActive(false);
+        
         yield return StartCoroutine(ShowRespawnCountdown(respawnCountdownTextP2));
+        
+        controlP2.gameObject.SetActive(true);
+        mainCamera2.gameObject.SetActive(true);
+        respawnBackgroundP2.gameObject.SetActive(false);
+        scoreTextP2.gameObject.SetActive(true);
         player2.SetActive(true);
     }
 
@@ -157,7 +189,15 @@ public class GameManager : MonoBehaviour
         else if (scoreP2 > scoreP1)
             winner = "Player Right";
 
+        mainCamera1.gameObject.SetActive(false);
+        controlP1.gameObject.SetActive(false);
+        mainCamera2.gameObject.SetActive(false);
+        controlP2.gameObject.SetActive(false);
+        scoreTextP1.gameObject.SetActive(false);
+        scoreTextP2.gameObject.SetActive(false);
+        countdownText.gameObject.SetActive(false);
         resultText.gameObject.SetActive(true);
+        logo.gameObject.SetActive(true);
         resultText.text = $"{winner} Wins!\n\nPlayer Left: {scoreP1}\nPlayer Right: {scoreP2}";
         restartButton.gameObject.SetActive(true);
         resultBackground.gameObject.SetActive(true);

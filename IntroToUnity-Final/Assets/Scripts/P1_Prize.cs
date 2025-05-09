@@ -49,7 +49,7 @@ public class P1_Prize : MonoBehaviour
     void Update()
     {
         if (player1 != null && Vector3.Distance(transform.position, player1.transform.position) < triggerDistance &&
-            Input.GetKeyDown(KeyCode.E))
+            Input.GetKeyDown(KeyCode.LeftShift))
         {
             audioSource.PlayOneShot(pickupSound); // Play pickup sound
             GameManager.instance.Player1Scored();  // Increment Player 1's score
